@@ -1,0 +1,12 @@
+// Import Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Custom colors
+$primary: #2e8b57;
+$gold: #d4af37;
+
+// Override Bootstrap variables
+$theme-colors: (
+  "primary": $primary,
+  "gold": $gold
+);

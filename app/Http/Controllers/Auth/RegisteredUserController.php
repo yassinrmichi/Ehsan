@@ -30,22 +30,30 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try{
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:8|confirmed',
+                'role' => 'required|in:donateur,association',
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => $request->role,
+    ]);
 
-        event(new Registered($user));
+    Auth::login($user);
 
-        Auth::login($user);
+    if ($user->role === 'association') {
+        return redirect()->route('associations.create');
+    }
 
-        return redirect(RouteServiceProvider::HOME);
+    return redirect(RouteServiceProvider::HOME);
+} catch(\Exception $e){
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }

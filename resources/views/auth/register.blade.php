@@ -91,6 +91,19 @@
           <h2 class="text-3xl font-bold text-gray-800 mb-1">Créer un compte</h2>
           <p class="text-gray-500">Rejoignez la communauté Ehsan et faites la différence</p>
         </div>
+        @if (session('error'))
+        <div class="error-message mb-4">
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Erreur !</strong>
+            <span class="block sm:inline">{{ session('error') }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              <i class="fas fa-times text-red-500"></i>
+            </span>
+          </div>
+        </div>
+      @endif
+
+
 
         <!-- Formulaire -->
         <form method="POST" action="/register" class="space-y-5">

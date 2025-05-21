@@ -28,6 +28,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if($request->user()->role == 'association') {
+            return redirect()->route('associations.show',$request->user()->id);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

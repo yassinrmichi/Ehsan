@@ -1,4 +1,6 @@
-@include('layouts.header')
+@extends('layouts.app')
+
+@section('content')
 <!-- Contact Start -->
 <div class="container-fluid contact bg-light py-5">
     <div class="container py-5">
@@ -127,4 +129,4 @@
 <!-- Contact End -->
 
 
-@include('layouts.footer')
+@endsection

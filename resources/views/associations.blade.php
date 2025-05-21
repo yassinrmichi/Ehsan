@@ -1,4 +1,5 @@
-@include('layouts.header')
+@extends('layouts.app')
+@section('content')
 
 <!-- Blog Start -->
 <div class="container-fluid blog py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -43,4 +44,4 @@
     </div>
 </div>
 
-@include('layouts.footer')
+@endsection

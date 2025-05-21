@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Association;
+use App\Http\Controllers\Controller;
 
 use App\Models\Association;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+
 
 class AssociationController extends Controller
 {
@@ -21,6 +24,16 @@ public function index()
     $associations = Association::all();
     return view('associations', compact('associations'));
 }
+
+public function dashboard($id)
+{
+    $association = Association::findOrFail($id);
+    $posts = $association->publications;
+    $events = $association->events;
+    return view('/association/dashboard', compact('association','posts','events'));
+}
+
+
 
 public function store(Request $request)
 {
@@ -60,6 +73,32 @@ public function store(Request $request)
 }
 
 
+public function updateCouverture(Request $request, $id)
+{
+    $request->validate([
+        'couverture' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $association = Association::findOrFail($id);
+
+    // Supprimer l'ancienne image si elle existe
+    if ($association->couverture && Storage::disk('public')->exists($association->couverture)) {
+        Storage::disk('public')->delete($association->couverture);
+    }
+
+    // Stocker la nouvelle image
+    $path = $request->file('couverture')->store('couvertures', 'public');
+
+    // Mettre à jour l'association
+    $association->update([
+        'couverture' => $path,
+    ]);
+
+    return redirect()->back()->with('success', 'Image de couverture mise à jour avec succès.');
+}
+
+
+
 
     /**
 
@@ -67,9 +106,12 @@ public function store(Request $request)
     /**
      * Display the specified resource.
      */
-    public function show(Association $association)
+    public function show($id)
     {
-        //
+        $association = Association::findOrFail($id);
+        $posts = $association->publications;
+        $events = $association->events;
+        return view('/association/profile', compact('association','posts','events'));
     }
 
     /**

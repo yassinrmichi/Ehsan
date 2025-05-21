@@ -13,33 +13,24 @@
     }
   </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row transition hover:shadow-indigo-200">
 
-  <div class="w-full max-w-md">
-
-    <!-- Logo -->
-    <div class="flex justify-center mb-6">
-      <div class="bg-white p-4 rounded-full shadow-lg transform hover:rotate-6 transition duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Carte -->
-    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden transition hover:shadow-indigo-200">
-      <div class="h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
-
-      <div class="p-8">
-        <div class="text-center mb-8">
-          <img src="{{ asset('img/Ehsan_Logo.png') }}" alt="Logo" class="mx-auto w-20 mb-2">
-          <h1 class="text-xl text-gray-700">Welcome back to <span class="text-indigo-600 font-semibold">Ehsan Plateform</span></h1>
-          <h2 class="text-2xl font-bold text-gray-800 mt-1">Connexion</h2>
-          <p class="text-sm text-gray-500 mt-1">Accédez à votre espace sécurisé</p>
+      <!-- Logo / Illustration -->
+      <div class="md:w-1/2 bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 flex items-center justify-center">
+        <div class="text-center">
+          <img src="{{ asset('img/Ehsan_Logo2.png') }}" alt="Logo Ehsan" class="w-28 mx-auto mb-4">
+          <h2 class="text-2xl font-bold">Bienvenue sur</h2>
+          <p class="text-lg font-medium mt-1">la plateforme <span class="italic">Ehsan</span></p>
         </div>
+      </div>
 
-        <!-- Formulaire -->
+      <!-- Formulaire -->
+      <div class="md:w-1/2 p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-1">Connexion</h2>
+        <p class="text-sm text-gray-500 mb-6">Accédez à votre espace sécurisé</p>
+
         <form method="POST" action="/login" class="space-y-5">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -58,7 +49,6 @@
                 placeholder="votre@email.com"
                 value="{{ old('email') }}">
             </div>
-            <p class="text-sm text-red-600 mt-1">Adresse email invalide.</p>
           </div>
 
           <!-- Mot de passe -->
@@ -76,7 +66,6 @@
                 class="pl-10 pr-4 py-3 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition"
                 placeholder="••••••••">
             </div>
-            <p class="text-sm text-red-600 mt-1">Mot de passe requis.</p>
           </div>
 
           <!-- Remember -->
@@ -104,12 +93,6 @@
         </div>
       </div>
     </div>
+  </body>
 
-    <!-- Footer -->
-    <div class="mt-6 text-center text-xs text-gray-500">
-      <p>© 2025 MyInfractions. Tous droits réservés.</p>
-    </div>
-  </div>
-
-</body>
 </html>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->text('description')->nullable();
             $table->string('site_web')->nullable();
-            $table->longText('logo')->nullable(); // Pour stocker les données de l'image encodée en base64
+            $table->longText('logo')->nullable(); 
             $table->timestamps();
         });
 

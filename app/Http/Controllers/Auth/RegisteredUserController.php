@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\welcomeMail;
 
 class RegisteredUserController extends Controller
 {
@@ -44,16 +46,19 @@ class RegisteredUserController extends Controller
         'password' => Hash::make($request->password),
         'role' => $request->role,
     ]);
-
+    Mail::to($request->email)->send(new welcomeMail($user));
     Auth::login($user);
+
 
     if ($user->role === 'association') {
         return redirect()->route('associations.create');
     }
 
+
+
     return redirect(RouteServiceProvider::HOME);
 } catch(\Exception $e){
-            return redirect()->back()->with(['error' => $e->getMessage()]);
+            return redirect()->back()->with('error' , $e->getMessage());
         }
     }
 }

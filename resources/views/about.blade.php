@@ -1,5 +1,5 @@
-@include('layouts.header')
-
+@extends('layouts.app')
+@section('content')
 <!-- About Section Start -->
 <div class="container py-5">
     <div class="row g-5 align-items-center">
@@ -32,4 +32,4 @@
 </div>
 <!-- About Section End -->
 
-@include('layouts.footer')
+@endsection

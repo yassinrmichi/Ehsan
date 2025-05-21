@@ -44,8 +44,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function associations()
+    public function association()
+{
+    return $this->hasOne(Association::class);
+}
+
+    // Si l'utilisateur est un donateur
+    public function donorConversations()
     {
-        return $this->hasMany(Association::class);
+        return $this->hasMany(Conversation::class, 'donator_id');
+    }
+
+    // Si l'utilisateur est une association
+    public function associationConversations()
+    {
+        return $this->hasMany(Conversation::class, 'association_id');
+    }
+
+    // Pour récupérer toutes les conversations où l'utilisateur participe
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'donator_id')
+                    ->orWhere('association_id', $this->id);
     }
 }
+
+
+
+
+

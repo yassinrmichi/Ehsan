@@ -19,6 +19,7 @@ class Association extends Model
         'description',
         'site_web',
         'logo',
+        'couverture',
     ];
     public function user()
     {
@@ -28,4 +29,16 @@ class Association extends Model
     {
         return $this->hasMany(Donation::class);
     }
+
+    public function publications()
+{
+    return $this->hasMany(Publication::class);
+}
+
+public function events()
+{
+    return $this->hasMany(Event::class);
+}
+
+
 }

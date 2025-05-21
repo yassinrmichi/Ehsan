@@ -147,6 +147,7 @@
 .navbar .navbar-nav .nav-item {
     display: flex;
     align-items: center;
+    color: white;
     padding: 20px;
 }
 

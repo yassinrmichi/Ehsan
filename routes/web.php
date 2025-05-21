@@ -2,8 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AssociationController;
-use App\Http\Controllers\DonateurController;
+use App\Http\Controllers\association\AssociationController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\PaiymentController;
+use App\Http\Controllers\association\PublicationController;
+use App\Http\Controllers\association\EventController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +43,39 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('/associations', AssociationController::class);
-Route::resource('/donateurs', DonateurController::class);
+Route::get('/associations/{id}', [AssociationController::class, 'show'])->name('associations.show');
+Route::put('/associations/{id}/updateImageConverture',[AssociationController::class,'updateCouverture'])->name('association.updateCouverture');
+Route::get('/associations/{id}/dashboard', [AssociationController::class, 'dashboard'])->name('associations.dashboard');
+
+Route::resource('/donateurs', DonationController::class);
+
+
+Route::get('/Conversation/create/{association}', [ChatController::class, 'create'])->name('Conversation.create');
+
+Route::get('/Conversation/{conversation}', [ChatController::class, 'show'])->name('chat');
+
+Route::post('/Conversation/send/{conversation}', [ChatController::class, 'store'])->name('Conversation.store');
+Route::get('/Conversation', [ChatController::class, 'index'])->name('Conversation.index');
+Route::get('/Conversation/{conversation}', [ChatController::class, 'show'])->name('Conversation.show');
+// web.php
+
+Route::post('/Coversation/{conversation}/mark-read', [ChatController::class, 'markAsRead'])->name('Conversation.markAsRead');
+
+
+
+
+
+
+Route::resource('/Publications', PublicationController::class);
+
+Route::resource('/events', EventController::class);
+
+
+Route::get('/paiyment/create/{id}', [PaiymentController::class, 'create'])->name('paiyment.create');
+Route::post('/paiyment/store', [PaiymentController::class, 'store'])->name('paiyment.store');
+
+
+
 
 
 require __DIR__.'/auth.php';

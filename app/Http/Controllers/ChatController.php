@@ -73,19 +73,37 @@ public function show(Conversation $conversation)
         }])
         ->get();
 
-    // Identifier l'autre participant
+    // Identifier l'autre participant et l'association associée
     $otherParticipant = $conversation->donator_id === $user->id
         ? $conversation->association
         : $conversation->donator;
+
+    // Récupérer l'association associée à la conversation
+    $association = $conversation->association;
 
     return view('chat', [
         'conversations' => $conversations,
         'currentConversation' => $conversation,
         'messages' => $messages,
         'otherParticipant' => $otherParticipant,
+        'association' => $association, // Ajout de l'association
     ]);
 }
+public function create($associationId)
+{
+    $donatorId = auth()->id();
 
+    if (!$donatorId) {
+        abort(403, 'Unauthorized');
+    }
+
+    $conversation = Conversation::firstOrCreate([
+        'donator_id' => $donatorId,
+        'association_id' => $associationId,
+    ]);
+
+    return redirect()->route('Conversation.show', ['conversation' => $conversation->id]);
+}
 
 public function markAsRead(Conversation $conversation)
 {
@@ -114,12 +132,18 @@ public function store(Request $request, $conversationId)
 
     $conversation = Conversation::findOrFail($conversationId);
 
+    $senderId = auth()->id();
+
+    // Assure-toi que l'utilisateur fait partie de la conversation
+    if ($senderId !== $conversation->donator_id && $senderId !== $conversation->association_id) {
+        abort(403, 'Unauthorized');
+    }
+
     $message = $conversation->messages()->create([
-        'sender_id' => auth()->id(),
+        'sender_id' => $senderId,
         'message' => $request->message,
     ]);
 
-    // Pour le retour AJAX
     if ($request->expectsJson()) {
         return response()->json([
             'success' => true,
@@ -131,23 +155,6 @@ public function store(Request $request, $conversationId)
     return redirect()->route('Conversation.show', $conversationId);
 }
 
-
-
-public function create($associationId)
-{
-    $donatorId = auth()->id();
-
-    if (!$donatorId) {
-        abort(403, 'Unauthorized');
-    }
-
-    $conversation = Conversation::firstOrCreate([
-        'donator_id' => $donatorId,
-        'association_id' => $associationId,
-    ]);
-
-    return redirect()->route('Conversation.show', ['conversation' => $conversation->id]);
-}
 
 
 

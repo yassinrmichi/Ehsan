@@ -11,7 +11,7 @@ class Message extends Model
         'conversation_id', // <-- ajoute cette ligne
         'sender_id',
         'message',
-        // ajoute ici d'autres colonnes que tu veux pouvoir remplir en masse
+
     ];
     protected $dates = ['read_at'];
 
@@ -20,10 +20,12 @@ class Message extends Model
             return $this->belongsTo(Conversation::class);
         }
 
+
         public function sender()
         {
             return $this->belongsTo(User::class, 'sender_id');
         }
+
 
 
 

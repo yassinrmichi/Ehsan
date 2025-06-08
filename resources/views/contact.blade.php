@@ -10,8 +10,8 @@
         </div>
         <div class="row g-5">
             <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                <div class="contact-img d-flex justify-content-center">
-                    <div class="contact-img-inner">
+                <div class="contact-img d-flex  justify-content-center">
+                    <div class="contact-img-inner ">
                         <img src="{{ asset('img/Donate2.png') }}" class="img-fluid w-100" alt="Image">
                     </div>
                 </div>

@@ -21,6 +21,7 @@ class Conversation extends Model
     {
         return $this->belongsTo(User::class, 'association_id');
     }
+    
 
     public function messages()
     {
@@ -42,13 +43,10 @@ class Conversation extends Model
     }
 
     // Retourne le nom de l'autre participant
-  public function getOtherParticipant()
+public function getOtherParticipant()
 {
-    $userId = auth()->id();
-    if ($this->donator_id === $userId) {
-        return $this->association;
-    }
-    return $this->donator;
+    $user = auth()->user();
+    return $this->donator_id === $user->id ? $this->association : $this->donator;
 }
 
 }

@@ -596,7 +596,7 @@
     top: 0;
     left: 0;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(2, 29, 53, 0.9);
     z-index: 1;
     animation-name: image-efects;
     animation-duration: 10s;

@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paiyments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+Schema::create('paiyments', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('association_id')->constrained()->onDelete('cascade');
+    $table->string('donor_name')->nullable();
+    $table->integer('amount'); // En centimes
+    $table->string('payment_intent_id');
+    $table->string('status');
+    $table->timestamps();
+});
     }
 
     /**

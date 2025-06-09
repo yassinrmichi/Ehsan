@@ -61,6 +61,13 @@ Route::get('/Conversation/{conversation}', [ChatController::class, 'show'])->nam
 
 Route::post('/Coversation/{conversation}/mark-read', [ChatController::class, 'markAsRead'])->name('Conversation.markAsRead');
 
+Route::post('/paiement/intent', [PaiymentController::class, 'createPaymentIntent'])->name('stripe.create.intent');
+Route::post('/paiement/store', [PaiymentController::class, 'store'])->name('paiyment.store');
+Route::get('/paiement/success', function () {
+    return view('paiement.success');
+})->name('payment.success');
+
+
 
 
 

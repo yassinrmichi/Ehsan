@@ -68,7 +68,7 @@
                     <!-- Image -->
                     <div class="col-lg-5 animated fadeInRight">
                         <div class="carousel-img-container">
-                            <img src="{{ asset('img/Donate2.png') }}" alt="Image don" class="img-fluid carousel-img-animated">
+                            <img src="{{ asset('img/Donate1.png') }}" alt="Image don" class="img-fluid carousel-img-animated">
                         </div>
                     </div>
                 </div>
